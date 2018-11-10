@@ -1,0 +1,43 @@
+.text {
+    font-size: 14px;
+}
+
+.item {
+    margin-bottom: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both
+}
+
+.box-card {
+    width: 480px;
+    height: 300px;
+}
+
+.box-card {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+body {
+    background: url("../images/day.jpg") no-repeat;
+}
+
+h1 {
+    font-size: 26px;
+}
+
+.el-card__header {
+    padding: 6px 20px;
+}

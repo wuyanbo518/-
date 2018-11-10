@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>账号管理</title>
+    <!--引入重置样式-->
+    <link rel="stylesheet" href="./stylesheets/reset.css">
+    <!--引入elementUI-->
+    <link rel="stylesheet" href="./stylesheets/element.css">
+    <!--引入自定义css-->
+    <link rel="stylesheet" href="./stylesheets/index.css">
+</head>
+<body>
+
+<div id="app">
+    <el-main>
+        <!--卡片-->
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span>账户管理</span>
+            </div>
+            <div class="text item">
+                <template>
+                    <el-table :data="tableData"  style="width: 100%">
+                        <el-table-column label="编号" prop="u_id">
+                        </el-table-column>
+                        <el-table-column label="账号" prop="userName">
+                        </el-table-column>
+                        <el-table-column label="用户名组" prop="userGroup">
+                        </el-table-column>
+                        <el-table-column label="日期" prop="createDatetime" :formatter="mydateFormat">
+                        </el-table-column>
+                        <el-table-column label="操作">
+                            <template slot-scope="scope">
+                                <el-button size="mini" @click="handleEdit(scope.row.u_id)" type="primary" plain>
+                                    <i class="el-icon-edit"></i> 编辑</el-button>
+                                <el-button size="mini" @click="handleDelete(scope.row.u_id)" type="danger" plain>
+                                    <i class="el-icon-delete"></i> 删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </template>
+            </div>
+        </el-card>
+    </el-main>
+
+</div>
+
+<!--引入jquery-->
+<script src="./javascripts/jquery.min.js"></script>
+<!--引入vue.js-->
+<script src="./javascripts/vue.min.js"></script>
+<!--引入elementUI-->
+<script src="./javascripts/element.js"></script>
+<!-- 引入moment时间格式化的js库 -->
+<script src="./javascripts/moment-with-locales.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                tableData: []
+            };
+        },
+        methods: {
+            handleEdit(id) {
+                //点击修改按钮时把id传递给修改页面member_edit.html
+                location.href = "menber_save.html?id="+id;
+            },
+            handleDelete(id) {
+                //1. 获取删除的id，参数传入
+
+                //2. 发起ajax到后端路由执行删除
+                $.get("/users/del/",{id},(result)=> {
+                    //4. 根据删除的结果处理业务逻辑
+                    if(result.isOk){
+                        alert(result.msg);
+                        //删除成功后跳转到自己
+                        //location.href="member_list.html";
+                        //location.reload(); //重载
+
+                        //删除成功后再重新获取数据并更新tableData
+                        //调用ajax方法获取数据
+                        this.getDataAjax();
+                    }
+                    else{
+                        alert(result.msg);
+                    }
+                });
+            },
+
+            //抽取获取数据的ajax请求为一个公共的方法
+            getDataAjax(){
+                $.get("/users/list", (userlist)=> {
+                    this.tableData = userlist;
+                });
+            },
+            //格式化时间的方法
+            mydateFormat: function (row, column) {
+                var date = row[column.property];
+                if (date == undefined) {
+                    return "";
+                }
+                return moment(date).format("YYYY-MM-DD");
+            }
+        },
+        mounted() {
+
+            //1. 发起ajax请求去后端路由获取数据
+
+            //修改this的指向，把this缓存起来指向vue实例
+            let _this = this;
+
+            $.get("/users/list", function (userlist) {
+                //处理前端的业务逻辑： 把后端获取的用户数据赋值给tableData属性
+                _this.tableData = userlist;
+            });
+        }
+    })
+</script>
+</body>
+</html>

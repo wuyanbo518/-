@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+    <!--引入重置样式-->
+    <link rel="stylesheet" href="./stylesheets/reset.css">
+    <!--引入elementUI-->
+    <link rel="stylesheet" href="./stylesheets/element.css">
+    <!--引入自定义css-->
+    <link rel="stylesheet" href="./stylesheets/index.css">
+</head>
+<body>
+
+<div id="app">
+    <el-container>
+        <!--左侧边栏-->
+        <el-aside width="200px">
+
+            <el-col style="color: white; text-align: right">
+                <h5>华联超市管理系统</h5>
+                <p>您好 admin</p>
+                <p><a href="main.html" target="my-main">管理首页</a> | <a href="#">退出系统</a></p>
+                <el-menu
+                        :unique-opened="true"
+                        default-active="2"
+                        class="el-menu-vertical-demo"
+                        @open="handleOpen"
+                        @close="handleClose">
+                    <el-submenu index="1">
+                        <template slot="title">
+                            <span>分类管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <a href="class_manage.html" target="my-main"><el-menu-item index="1-1">分类管理</el-menu-item></a>
+                            <a href="class_add.html" target="my-main"><el-menu-item index="1-2">添加分类</el-menu-item></a>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="2">
+                        <template slot="title">
+                            <span>商品管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <a href="#"><el-menu-item index="2-1">商品管理</el-menu-item></a>
+                            <a href="#"><el-menu-item index="2-2">添加商品</el-menu-item></a>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="3">
+                        <template slot="title">
+                            <span>统计管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <a href="#"><el-menu-item index="3-1">销售统计</el-menu-item></a>
+                            <a href="#"><el-menu-item index="3-2">进货统计</el-menu-item></a>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="4">
+                        <template slot="title">
+                            <span>账号管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <a href="menber_list.html" target="my-main"><el-menu-item index="4-1">账号管理</el-menu-item></a>
+                            <a href="menber_add.html" target="my-main"><el-menu-item index="4-2">添加账号</el-menu-item></a>
+                            <a href="menber_edit.html" target="my-main"><el-menu-item index="4-3">密码修改</el-menu-item></a>
+                        </el-menu-item-group>
+                    </el-submenu>
+
+                </el-menu>
+            </el-col>
+        </el-aside>
+        <!--右侧内容-->
+        <el-container>
+            <el-header>
+                <h1>欢迎您 admin</h1>
+                <p>查看详细的系统信息</p>
+            </el-header>
+            <iframe src="main.html" frameborder="0" name="my-main" scrolling="auto" width="100%" height="100%"></iframe>
+            <el-footer><p style="border-top: 1px solid #ccc;">@ copyright 2018 华联超市管理系统</p></el-footer>
+        </el-container>
+    </el-container>
+
+</div>
+
+<!--引入jquery-->
+<script src="./javascripts/jquery.min.js"></script>
+<!--引入vue.js-->
+<script src="./javascripts/vue.min.js"></script>
+<!--引入elementUI-->
+<script src="./javascripts/element.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                tableData: [{
+                    name: '茅台',
+                    num: 6
+                }, {
+                    name: '龙凤呈祥',
+                    num: 5
+                }, {
+                    name: '龙凤呈祥',
+                    num: 5
+                }],
+                tableData2: [{
+                    name: '优乐美',
+                    repertory: 0,
+                    handle: '入库',
+                }]
+            }
+        },
+        methods: {
+            tableRowClassName({row, rowIndex}) {
+                if (rowIndex === 1) {
+                    return 'warning-row';
+                } else if (rowIndex === 3) {
+                    return 'success-row';
+                }
+                return '';
+            },
+            handleOpen(key, keyPath) {
+            },
+            handleClose(key, keyPath) {
+            }
+        }
+    })
+</script>
+</body>
+</html>

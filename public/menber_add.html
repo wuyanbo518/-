@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+    <!--引入重置样式-->
+    <link rel="stylesheet" href="./stylesheets/reset.css">
+    <!--引入elementUI-->
+    <link rel="stylesheet" href="./stylesheets/element.css">
+    <!--引入自定义css-->
+    <link rel="stylesheet" href="./stylesheets/index.css">
+</head>
+<body>
+
+<div id="app">
+    <el-main>
+        <!--卡片-->
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span>添加管理员账号</span>
+            </div>
+            <div class="text item">
+                <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px"
+                         class="demo-ruleForm" :label-position="labelPosition">
+                    <el-form-item label="用户名:" prop="username">
+                        <el-input v-model="ruleForm2.username"></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码:" prop="pass">
+                        <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="确认密码:" prop="checkPass">
+                        <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="选择用户组:" prop="region">
+                        <el-select v-model="ruleForm2.region" placeholder="选择用户组">
+                            <el-option label="超级管理员" value="超级管理员"></el-option>
+                            <el-option label="管理员" value="管理员"></el-option>
+                            <el-option label="普通用户" value="普通用户"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <br>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('ruleForm2')">添加</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </el-card>
+    </el-main>
+
+</div>
+
+<!--引入jquery-->
+<script src="./javascripts/jquery.min.js"></script>
+<!--引入vue.js-->
+<script src="./javascripts/vue.min.js"></script>
+<!--引入elementUI-->
+<script src="./javascripts/element.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            var validatePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入密码'));
+                } else {
+                    if (this.ruleForm2.checkPass !== '') {
+                        this.$refs.ruleForm2.validateField('checkPass');
+                    }
+                    callback();
+                }
+            };
+            var validatePass2 = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value !== this.ruleForm2.pass) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
+            return {
+                labelPosition: 'top',
+                ruleForm2: {
+                    pass: '',
+                    checkPass: '',
+                    username: '',
+                    region: ''
+                },
+                rules2: {
+                    pass: [
+                        {required:'true',validator: validatePass, trigger: 'blur'},
+                        {min: 6, max: 16, message:'请输入6到16位的密码', trigger: 'blur'}
+                    ],
+                    checkPass: [
+                        {required:'true',validator: validatePass2, trigger: 'blur'}
+                    ],
+                    username: [
+                        {required:'true',message:'请输入用户名', trigger: 'blur'},
+                        {min: 3, max: 10, message:'请输入3到10位的用户名',trigger:'blur'}
+                    ],
+                    region: [
+                        { required: 'true', message: '请选择活动区域', trigger: 'change' }
+                    ],
+                }
+            }
+        },
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        //表单验证通过发起ajax请求道后端
+                       $.post("/users/add",this.ruleForm2,function (result) {
+                           alert("添加成功");
+                           location.href = "menber_list.html"
+                       })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            }
+        }
+    })
+</script>
+</body>
+</html>

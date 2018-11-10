@@ -1,0 +1,180 @@
+body{
+    background: #F0F0F0;
+}
+
+a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.el-header, .el-footer {
+    color: #333;
+    line-height: 40px;
+}
+
+.el-aside {
+    background-color: #D3DCE6;
+}
+
+.el-main {
+    color: #333;
+}
+
+body > .el-container {
+    margin-bottom: 40px;
+}
+
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+}
+
+.el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+}
+
+html,body,#app,.el-container{
+    height: 100%;
+}
+
+.el-header{
+    height: 100px!important;
+}
+.el-header h1{
+    font-size: 32px;
+    margin-top:28px;
+}
+
+/*左边导航*/
+.el-aside{
+    background: url("../images/left_bg.png");
+}
+.el-submenu .el-menu-item {
+     padding: 0 10px;
+     min-width: 0;
+}
+.el-submenu__title{
+    background: url("../images/menu_bg.png");
+    height: 33px;
+    line-height: 33px;
+    border-radius: 4px 0 0 4px;
+    margin-bottom: 8px;
+    padding: 0 10px;
+}
+.el-menu-item{
+    background: #ccc;
+    height: 33px!important;
+    line-height: 33px!important;
+    color: #fff !important;
+}
+.el-submenu__title{
+    color: #fff !important;
+    text-align: right;
+    margin-left: 20px;
+
+}
+
+.el-menu {
+    border-right: none;
+}
+.el-menu,.el-menu-item{
+    background-color: transparent;
+}
+.el-menu-item{
+    width: 180px;
+    margin-left: 20px;
+    border-radius: 4px 0 0 4px;
+    font-size: 12px;
+}
+.el-menu-item:hover{
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.el-col>h5{
+    font-size: 22px;
+    margin: 60px 0;
+    margin-right: 10px;
+ }
+.el-col>p{
+    font-size: 14px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+}
+
+.el-icon-arrow-down:before {
+    content: none;
+}
+
+.el-menu-item.is-active {
+    color: #000!important;
+    background: rgba(255,255,255,0.7);
+}
+
+
+/*右边内容*/
+/*卡片*/
+.text {
+    font-size: 14px;
+}
+
+.item {
+    margin-bottom: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+.clearfix:after {
+    clear: both
+}
+
+.el-card__header{
+    background: #EBEBEB!important;
+}
+
+/*提示*/
+.el-alert--warning {
+    background-color: #dbe3ff;
+    color: #99979a;
+}
+.el-icon-warning:before{
+    color: #4e70d4;
+}
+
+
+/*左右分栏*/
+.el-row {
+    margin-bottom: 20px;
+}
+.el-col {
+    border-radius: 4px;
+}
+
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+.row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+}
+.el-card__body{
+    padding-bottom: 0;
+}
+
+
+
+/*form 表单*/
+
+.el-form-item__label{
+    padding: 0 !important;
+}
+.el-button--primary{
+    background-color: lawngreen;
+    border-color: lawngreen;
+}
+.el-form-item{
+    width: 30%;
+}
